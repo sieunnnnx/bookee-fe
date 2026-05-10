@@ -1,0 +1,32 @@
+name: Bug Fix
+description: 버그 수정
+labels: feature
+body:
+  - type: textarea
+    attributes:
+      label: 버그 설명
+      placeholder: 어떤 문제가 발생했는지 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 재현 방법
+      placeholder: 버그를 재현하는 방법을 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 예상 동작
+      placeholder: 정상적으로 동작했을 때 기대 결과를 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 해결 방법
+      placeholder: 버그를 해결하기 위해 시도한 방법을 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 추가 사항
+      placeholder: 추가사항을 적어주세요.

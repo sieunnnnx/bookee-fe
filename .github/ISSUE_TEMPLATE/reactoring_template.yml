@@ -1,0 +1,28 @@
+name: Refactoring
+description: 기능 리팩토링
+labels: feature
+body:
+  - type: textarea
+    attributes:
+      label: 리팩토링 대상
+      placeholder: 어떤 코드/기능을 리팩토링 하는지 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 문제점
+      placeholder: 현재 코드의 문제점을 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 개선 방향
+      placeholder: 어떻게 개선할 것인지 작성해주세요.
+  - type: textarea
+    attributes:
+      label: 영향 범위
+      placeholder: 영향받는 기능 및 모듈을 작성해주세요.
+  - type: textarea
+    attributes:
+      label: 추가 사항
+      placeholder: 추가사항을 적어주세요.
