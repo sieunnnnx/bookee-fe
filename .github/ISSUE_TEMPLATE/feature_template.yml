@@ -1,0 +1,20 @@
+name: Feature
+description: 새로운 기능 추가
+labels: feature
+body:
+  - type: textarea
+    attributes:
+      label: 설명
+      placeholder: 기능 설명을 입력해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 작업할 내용
+      placeholder: 작업할 내용를 적어주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 추가 사항
+      placeholder: 추가사항을 적어주세요.
