@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum SocialLoginButtonVariant {
+    
     case kakao
     case google
     case apple
