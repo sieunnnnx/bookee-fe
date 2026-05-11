@@ -38,23 +38,23 @@ final class APIClient {
         
         do {
             let decodedResponse = try JSONDecoder().decode(APIResponse<T>.self, from: data)
-
+            
             if decodedResponse.isSuccess {
                 guard let responseData = decodedResponse.data else {
                     throw APIError.decodingFailed
                 }
-
+                
                 return responseData
             }
-
+            
             throw APIError.serverError(
                 code: decodedResponse.code,
                 message: decodedResponse.message
             )
-
+            
         } catch let apiError as APIError {
             throw apiError
-
+            
         } catch {
             throw APIError.decodingFailed
         }
@@ -79,8 +79,12 @@ final class APIClient {
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        if let accessToken = TokenStorage.shared.accessToken {
-            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        if endpoint.requiresAuth,
+           let accessToken = TokenStorage.shared.accessToken {
+            request.setValue(
+                "Bearer \(accessToken)",
+                forHTTPHeaderField: "Authorization"
+            )
         }
         
         return request
