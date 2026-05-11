@@ -9,7 +9,7 @@ import Foundation
 
 struct TermAgreement: Encodable {
     
-    let termId: Int
+    var termId: Int
     
-    let agreed: Bool
+    var agreed: Bool
 }

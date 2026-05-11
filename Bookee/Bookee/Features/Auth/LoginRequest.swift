@@ -11,5 +11,5 @@ struct LoginRequest: Encodable {
     
     let provider: SocialLoginProvider
 
-    let providerToken: String
+    let socialId: String
 }

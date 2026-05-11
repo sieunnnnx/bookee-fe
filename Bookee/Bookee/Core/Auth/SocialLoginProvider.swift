@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SocialLoginProvider: String, Encodable {
+enum SocialLoginProvider: String, Encodable, Decodable, Sendable {
     
     case google = "GOOGLE"
     

@@ -37,5 +37,17 @@ enum APIError: Error, LocalizedError {
         case .unknown:
             return "알 수 없는 오류가 발생했습니다."
         }
+        
+    }
+    
+    var code: String? {
+        switch self {
+        
+        case .serverError(let code, _):
+            return code
+            
+        default:
+            return nil
+        }
     }
 }

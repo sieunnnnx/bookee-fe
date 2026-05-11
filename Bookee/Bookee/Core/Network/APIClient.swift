@@ -13,7 +13,7 @@ final class APIClient {
     
     private init() {}
     
-    func reaquest<T: Decodable>(
+    func request<T: Decodable>(
         endpoint: APIEndpoint,
         responseType: T.Type,
     ) async throws -> T {
