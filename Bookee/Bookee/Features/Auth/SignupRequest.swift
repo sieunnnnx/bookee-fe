@@ -9,17 +9,17 @@ import Foundation
 
 struct SignupRequest: Encodable {
     
-    let termAgreements: [TermAgreement]
+    var termAgreements: [TermAgreement]
     
-    let provider: SocialLoginProvider
+    var provider: SocialLoginProvider
     
-    let socialId: String
+    var socialId: String
     
-    let profileImgUrl: String?
+    var profileImgUrl: String?
     
-    let nickname: String
+    var nickname: String
     
-    let birthday: String
+    var birthday: String
     
-    let email: String
+    var email: String
 }

@@ -15,14 +15,16 @@ final class AppleLoginService: NSObject {
     
     private override init() {}
     
-    private var continuation: CheckedContinuation<String, Error>?
+    private var continuation: CheckedContinuation<LoginRequest, Error>?
     private var presentationWindow: ASPresentationAnchor?
     
-    func login() async throws -> String {
+    func login() async throws -> LoginRequest {
         try await withCheckedThrowingContinuation { continuation in
             
             guard let window = Self.findPresentationWindow() else {
-                continuation.resume(throwing: SocialLoginError.missingWindowScene)
+                continuation.resume(
+                    throwing: SocialLoginError.missingWindowScene
+                )
                 return
             }
             
@@ -60,6 +62,11 @@ final class AppleLoginService: NSObject {
         
         return nil
     }
+    
+    private func clear() {
+        continuation = nil
+        presentationWindow = nil
+    }
 }
 
 extension AppleLoginService: ASAuthorizationControllerDelegate {
@@ -68,18 +75,30 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
         controller: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
-        guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let identityToken = credential.identityToken,
-              let tokenString = String(data: identityToken, encoding: .utf8) else {
-            continuation?.resume(throwing: SocialLoginError.missingToken)
-            continuation = nil
-            presentationWindow = nil
+        guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+            continuation?.resume(
+                throwing: SocialLoginError.socialLoginFailed
+            )
+            clear()
             return
         }
         
-        continuation?.resume(returning: tokenString)
-        continuation = nil
-        presentationWindow = nil
+        guard let identityToken = credential.identityToken,
+              let tokenString = String(data: identityToken, encoding: .utf8) else {
+            continuation?.resume(
+                throwing: SocialLoginError.missingToken
+            )
+            clear()
+            return
+        }
+        
+        let loginRequest = LoginRequest(
+            provider: .apple,
+            socialId: tokenString
+        )
+        
+        continuation?.resume(returning: loginRequest)
+        clear()
     }
     
     func authorizationController(
@@ -88,13 +107,16 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
     ) {
         if let authError = error as? ASAuthorizationError,
            authError.code == .canceled {
-            continuation?.resume(throwing: SocialLoginError.socialLoginCancelled)
+            continuation?.resume(
+                throwing: SocialLoginError.socialLoginCancelled
+            )
         } else {
-            continuation?.resume(throwing: error)
+            continuation?.resume(
+                throwing: error
+            )
         }
         
-        continuation = nil
-        presentationWindow = nil
+        clear()
     }
 }
 
@@ -109,7 +131,9 @@ extension AppleLoginService: ASAuthorizationControllerPresentationContextProvidi
         }
         
         guard let window = Self.findPresentationWindow() else {
-            preconditionFailure("활성화된 화면 정보를 찾을 수 없습니다.")
+            preconditionFailure(
+                SocialLoginError.missingWindowScene.localizedDescription
+            )
         }
         
         return window

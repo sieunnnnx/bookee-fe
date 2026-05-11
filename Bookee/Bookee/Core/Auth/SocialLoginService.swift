@@ -13,8 +13,9 @@ final class SocialLoginService {
     
     private init() {}
     
-    func login(provider: SocialLoginProvider) async throws -> String {
+    func login(provider: SocialLoginProvider) async throws -> LoginRequest {
         switch provider {
+            
         case .kakao:
             return try await KakaoLoginService.shared.login()
             
