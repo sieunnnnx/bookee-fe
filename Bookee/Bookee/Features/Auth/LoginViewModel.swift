@@ -38,7 +38,7 @@ final class LoginViewModel: ObservableObject {
                 )
                 
             } catch let error as APIError {
-                if error.code == "AUTH-004" {
+                if error.code == "AUTH-005" {
                     pendingSignup = PendingSignup(
                         provider: loginRequest.provider,
                         socialId: loginRequest.socialId

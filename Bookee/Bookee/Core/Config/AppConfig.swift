@@ -12,7 +12,7 @@ enum AppConfig {
     
     static var kakaoNativeAppKey: String {
         guard let key = Bundle.main.object(
-            forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY"
+            forInfoDictionaryKey: "Default Native AppKey"
         ) as? String else {
             fatalError("KAKAO_NATIVE_APP_KEY가 설정되지 않았습니다.")
         }

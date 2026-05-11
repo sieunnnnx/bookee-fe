@@ -15,7 +15,7 @@ enum AuthEndpoint: APIEndpoint {
         switch self {
             
         case .socialLogin:
-            return "/auth/social-login"
+            return "/auth/login"
             
         case .signup:
             return "/auth/signup"

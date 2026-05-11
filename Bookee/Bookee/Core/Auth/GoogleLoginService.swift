@@ -31,10 +31,6 @@ final class GoogleLoginService {
             throw SocialLoginError.missingToken
         }
         
-        guard let socialId = user.userID else {
-            throw SocialLoginError.missingToken
-        }
-        
         return LoginRequest(
             provider: .google,
             socialId: idToken

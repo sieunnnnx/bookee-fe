@@ -19,18 +19,22 @@ struct SocialLoginButton: View {
         SwiftUI.Button {
             action()
         } label:  {
-            HStack(spacing: Spacing.spacing8) {
-                Image(variant.iconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
+            ZStack {
+                HStack {
+                    Image(variant.iconName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: metric.iconSize, height: metric.iconSize)
+                    
+                    Spacer()
+                }
+                .padding(.leading, Spacing.spacing24)
+                .padding(.trailing, Spacing.spacing24)
                 
                 Text(variant.title)
                     .font(metric.font)
                     .foregroundColor(variant.foregroundColor)
             }
-            .padding(.leading, Spacing.spacing24)
-            .padding(.trailing, Spacing.spacing32)
             .frame(maxWidth: .infinity)
             .frame(height: metric.height)
             .background(variant.backgroundColor)

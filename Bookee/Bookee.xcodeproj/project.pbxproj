@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38B39B882FB17F3900E98296 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39B872FB17F3900E98296 /* Alamofire */; };
-		38B39B8A2FB17F3900E98296 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39B892FB17F3900E98296 /* AlamofireDynamic */; };
 		38B39B9E2FB19E0B00E98296 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39B9D2FB19E0B00E98296 /* RxKakaoSDK */; };
 		38B39BA12FB19E2200E98296 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39BA02FB19E2200E98296 /* KakaoSDK */; };
 		38B39C2A2FB1C8E000E98296 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39C292FB1C8E000E98296 /* GoogleSignIn */; };
@@ -37,6 +35,7 @@
 		38B39C5B2FB1C99900E98296 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39C5A2FB1C99900E98296 /* FirebaseRemoteConfig */; };
 		38B39C5D2FB1C99900E98296 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39C5C2FB1C99900E98296 /* FirebaseStorage */; };
 		38B39C5F2FB1C99900E98296 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39C5E2FB1C99900E98296 /* FirebaseStorageCombine-Community */; };
+		38B39D812FB1D80600E98296 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 38B39D802FB1D80600E98296 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +80,6 @@
 				38B39C552FB1C99900E98296 /* FirebaseMLModelDownloader in Frameworks */,
 				38B39C572FB1C99900E98296 /* FirebaseMessaging in Frameworks */,
 				38B39C5D2FB1C99900E98296 /* FirebaseStorage in Frameworks */,
-				38B39B882FB17F3900E98296 /* Alamofire in Frameworks */,
 				38B39C472FB1C99900E98296 /* FirebaseDatabase in Frameworks */,
 				38B39C432FB1C99900E98296 /* FirebaseCore in Frameworks */,
 				38B39C4F2FB1C99900E98296 /* FirebaseFunctionsCombine-Community in Frameworks */,
@@ -91,8 +89,8 @@
 				38B39BA12FB19E2200E98296 /* KakaoSDK in Frameworks */,
 				38B39C2C2FB1C8E000E98296 /* GoogleSignInSwift in Frameworks */,
 				38B39C4B2FB1C99900E98296 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				38B39D812FB1D80600E98296 /* Alamofire in Frameworks */,
 				38B39C5F2FB1C99900E98296 /* FirebaseStorageCombine-Community in Frameworks */,
-				38B39B8A2FB17F3900E98296 /* AlamofireDynamic in Frameworks */,
 				38B39C4D2FB1C99900E98296 /* FirebaseFunctions in Frameworks */,
 				38B39C372FB1C99900E98296 /* FirebaseAnalyticsCore in Frameworks */,
 				38B39C452FB1C99900E98296 /* FirebaseCrashlytics in Frameworks */,
@@ -141,8 +139,6 @@
 			);
 			name = Bookee;
 			packageProductDependencies = (
-				38B39B872FB17F3900E98296 /* Alamofire */,
-				38B39B892FB17F3900E98296 /* AlamofireDynamic */,
 				38B39B9D2FB19E0B00E98296 /* RxKakaoSDK */,
 				38B39BA02FB19E2200E98296 /* KakaoSDK */,
 				38B39C292FB1C8E000E98296 /* GoogleSignIn */,
@@ -171,6 +167,8 @@
 				38B39C5A2FB1C99900E98296 /* FirebaseRemoteConfig */,
 				38B39C5C2FB1C99900E98296 /* FirebaseStorage */,
 				38B39C5E2FB1C99900E98296 /* FirebaseStorageCombine-Community */,
+				38B39D802FB1D80600E98296 /* Alamofire */,
+				38B39D822FB1D80600E98296 /* AlamofireDynamic */,
 			);
 			productName = Bookee;
 			productReference = 38B3994E2FAF75C200E98296 /* Bookee.app */;
@@ -201,11 +199,11 @@
 			mainGroup = 38B399452FAF75C200E98296;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				38B39B862FB17F3900E98296 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				38B39B9C2FB19E0B00E98296 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				38B39B9F2FB19E2200E98296 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				38B39C282FB1C8E000E98296 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				38B39C2F2FB1C99900E98296 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				38B39D7F2FB1D80600E98296 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 38B3994F2FAF75C200E98296 /* Products */;
@@ -447,14 +445,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		38B39B862FB17F3900E98296 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.12.0;
-			};
-		};
 		38B39B9C2FB19E0B00E98296 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
@@ -487,19 +477,17 @@
 				minimumVersion = 12.13.0;
 			};
 		};
+		38B39D7F2FB1D80600E98296 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		38B39B872FB17F3900E98296 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 38B39B862FB17F3900E98296 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		38B39B892FB17F3900E98296 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 38B39B862FB17F3900E98296 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
 		38B39B9D2FB19E0B00E98296 /* RxKakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 38B39B9C2FB19E0B00E98296 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
@@ -639,6 +627,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38B39C2F2FB1C99900E98296 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		38B39D802FB1D80600E98296 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B39D7F2FB1D80600E98296 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		38B39D822FB1D80600E98296 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B39D7F2FB1D80600E98296 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
