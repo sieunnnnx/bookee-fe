@@ -63,6 +63,6 @@ struct AppHeader: View {
     
     private var emptyButtonSpace: some View {
         Color.clear
-            .frame(width: .infinity, height: 44)
+            .frame(width: 44, height: 44)
     }
 }

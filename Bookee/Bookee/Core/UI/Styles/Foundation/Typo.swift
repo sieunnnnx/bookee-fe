@@ -9,17 +9,19 @@ import SwiftUI
 
 enum Typo {
     
-    static let title = Font.system(size: 24, weight: .bold)
-    static let subTitle = Font.system(size: 16, weight: .semibold)
+    static let title = Font.custom("GothicA1-Bold", size: 24)
+    static let titleLineSpacing: CGFloat = 9.6
+    static let subTitle = Font.custom("GothicA1-Medium", size: 16)
     
-    static let headerTitle = Font.system(size: 20, weight: .medium)
+    static let headerTitle = Font.custom("GothicA1-Medium", size: 20)
     
-    static let largeButtonText = Font.system(size:16, weight: .semibold)
+    static let largeButtonText = Font.custom("GothicA1-Medium", size: 16)
 
-    static let checkBoxLabel = Font.system(size: 18, weight: .medium)
+    static let checkBoxLabelLarge = Font.custom("GothicA1-Medium", size: 18)
+    static let checkBoxLabelMedium = Font.custom("GothicA1-Regular", size: 16)
     
-    static let inputLabel = Font.system(size: 13, weight: .semibold)
-    static let inputPlaceholder = Font.system(size: 18, weight: .medium)
-    static let inputText = Font.system(size: 18, weight: .regular)
-    static let inputMessage = Font.system(size: 13, weight: .medium)
+    static let inputLabel = Font.custom("GothicA1-SemiBold", size: 13)
+    static let inputPlaceholder = Font.custom("GothicA1-Medium", size: 18)
+    static let inputText = Font.custom("GothicA1-Regular", size: 18)
+    static let inputMessage = Font.custom("GothicA1-Medium", size: 13)
 }

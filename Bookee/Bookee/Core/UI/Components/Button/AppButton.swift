@@ -29,11 +29,11 @@ struct AppButton: View {
             }
         } label: {
             Text(title)
-                .background(variant.backgroundColor)
-                .foregroundColor(variant.foregroundColor)
-                .frame(maxWidth: isFullWidth ? .infinity : nil)
                 .font(metrics.font)
+                .foregroundColor(buttonVariant.foregroundColor)
+                .frame(maxWidth: isFullWidth ? .infinity : nil)
                 .frame(height: metrics.height)
+                .background(buttonVariant.backgroundColor)
                 .cornerRadius(metrics.cornerRadius)
         }
         .disabled(isDisabled)

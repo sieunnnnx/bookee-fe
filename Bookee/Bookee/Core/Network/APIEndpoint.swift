@@ -9,10 +9,11 @@ import Foundation
 
 protocol APIEndpoint {
     var path: String { get }
-    var method: HttpMethod { get }
+    var method: HTTPMethod { get }
     var headers: [String: String]? { get }
     var queryItems: [URLQueryItem]? { get }
     var body: Data? { get }
+    var requiresAuth: Bool { get }
 }
 
 extension APIEndpoint {
@@ -29,5 +30,9 @@ extension APIEndpoint {
     
     var body: Data? {
         nil
+    }
+    
+    var requiresAuth: Bool {
+        true
     }
 }
