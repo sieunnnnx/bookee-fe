@@ -40,7 +40,7 @@ struct SignupEmailView: View {
             )
             .padding(.horizontal, Spacing.spacing4)
             
-            VStack(alignment: .leading, spacing: 74) {
+            VStack(alignment: .leading, spacing: 44) {
                 VStack(alignment: .leading, spacing: Spacing.spacing12) {
                     Text("서비스에 사용할\n이메일을 입력해주세요.")
                         .font(Typo.title)
@@ -53,7 +53,13 @@ struct SignupEmailView: View {
                 }
                 .padding(.top, Spacing.spacing16)
                 
-                emailField
+                TextInput(
+                        title: "이메일",
+                        placeholder: "bookee@bookee.com",
+                        text: $email,
+                        message: emailMessage,
+                        keyboardType: .emailAddress
+                )
             }
             .padding(.horizontal, Spacing.spacing16)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -96,43 +102,6 @@ struct SignupEmailView: View {
         }
     }
     
-    private var emailField: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("이메일")
-                .font(Typo.inputLabel)
-                .foregroundColor(Color.inputLabelDefault)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 18, alignment: .leading)
-            
-            TextField(
-                "",
-                text: $email,
-                prompt: Text("bookee@bookee.com")
-                    .font(Typo.inputPlaceholder)
-                    .foregroundColor(Color.inputPlaceholderDefault)
-            )
-            .font(Typo.inputText)
-            .foregroundColor(Color.inputTextActive)
-            .keyboardType(.emailAddress)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .leading)
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .fill(emailLineColor)
-                    .frame(height: 1)
-            }
-            
-            if let emailMessage {
-                Text(emailMessage)
-                    .font(Typo.inputMessage)
-                    .foregroundColor(Color.inputMessageError)
-                    .padding(.top, Spacing.spacing6)
-            }
-        }
-        .frame(maxWidth: .infinity, minHeight: 62, alignment: .topLeading)
-    }
-    
     private func submitEmail() {
         guard isEmailValid else {
             emailMessage = Self.emailValidationMessage(email)
@@ -162,16 +131,4 @@ struct SignupEmailView: View {
         
         return nil
     }
-}
-
-#Preview {
-    SignupEmailView(
-        viewModel: SignupViewModel(
-            pendingSignup: PendingSignup(
-                provider: .google,
-                socialId: "preview"
-            )
-        ),
-        onBack: {}
-    )
 }

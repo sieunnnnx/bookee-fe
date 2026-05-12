@@ -332,16 +332,3 @@ struct SignupProfileView: View {
         return nil
     }
 }
-
-#Preview {
-    SignupProfileView(
-        viewModel: SignupViewModel(
-            pendingSignup: PendingSignup(
-                provider: .google,
-                socialId: "preview"
-            )
-        ),
-        onBack: {},
-        onNext: {}
-    )
-}
