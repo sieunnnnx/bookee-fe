@@ -35,7 +35,8 @@ struct TermView: View {
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
-                        .padding(.vertical, Spacing.spacing4)
+                        .padding(.top, Spacing.spacing4)
+                        .padding(.bottom, Spacing.spacing6)
                     
                     if viewModel.isLoading && viewModel.terms.isEmpty {
                         ProgressView()
