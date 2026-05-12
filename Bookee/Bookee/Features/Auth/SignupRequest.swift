@@ -15,6 +15,8 @@ struct SignupRequest: Encodable {
     
     var socialId: String
     
+    var socialToken: String
+    
     var profileImgUrl: String?
     
     var nickname: String

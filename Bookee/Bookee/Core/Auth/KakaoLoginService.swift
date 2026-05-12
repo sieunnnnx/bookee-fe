@@ -15,47 +15,55 @@ final class KakaoLoginService {
     
     private init() {}
     
-    func login() async throws -> LoginRequest {
-        let kakaoAccessToken = try await requestKakaoAccessToken()
+    func login() async throws -> SocialLoginCredential {
+        let kakaoAccessToken = try await loginWithKakao()
+        let kakaoUserId = try await requestKakaoUserId()
         
-        return LoginRequest(
+        return SocialLoginCredential(
             provider: .kakao,
-            socialId: kakaoAccessToken
+            socialId: kakaoUserId,
+            socialToken: kakaoAccessToken
         )
     }
     
-    private func requestKakaoAccessToken() async throws -> String {
+    private func loginWithKakao() async throws -> String {
         try await withCheckedThrowingContinuation { continuation in
-            
-            if UserApi.isKakaoTalkLoginAvailable() {
-                UserApi.shared.loginWithKakaoTalk { oauthToken, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    
-                    guard let accessToken = oauthToken?.accessToken else {
-                        continuation.resume(throwing: SocialLoginError.missingToken)
-                        return
-                    }
-                    
-                    continuation.resume(returning: accessToken)
+            let completion: (OAuthToken?, Error?) -> Void = { oauthToken, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
                 }
                 
-            } else {
-                UserApi.shared.loginWithKakaoAccount { oauthToken, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    
-                    guard let accessToken = oauthToken?.accessToken else {
-                        continuation.resume(throwing: SocialLoginError.missingToken)
-                        return
-                    }
-                    
-                    continuation.resume(returning: accessToken)
+                guard let accessToken = oauthToken?.accessToken else {
+                    continuation.resume(throwing: SocialLoginError.missingToken)
+                    return
                 }
+                
+                continuation.resume(returning: accessToken)
+            }
+            
+            if UserApi.isKakaoTalkLoginAvailable() {
+                UserApi.shared.loginWithKakaoTalk(completion: completion)
+            } else {
+                UserApi.shared.loginWithKakaoAccount(completion: completion)
+            }
+        }
+    }
+    
+    private func requestKakaoUserId() async throws -> String {
+        try await withCheckedThrowingContinuation { continuation in
+            UserApi.shared.me { user, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                guard let userId = user?.id else {
+                    continuation.resume(throwing: SocialLoginError.missingToken)
+                    return
+                }
+                
+                continuation.resume(returning: String(userId))
             }
         }
     }

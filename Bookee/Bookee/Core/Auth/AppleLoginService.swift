@@ -15,10 +15,10 @@ final class AppleLoginService: NSObject {
     
     private override init() {}
     
-    private var continuation: CheckedContinuation<LoginRequest, Error>?
+    private var continuation: CheckedContinuation<SocialLoginCredential, Error>?
     private var presentationWindow: ASPresentationAnchor?
     
-    func login() async throws -> LoginRequest {
+    func login() async throws -> SocialLoginCredential {
         try await withCheckedThrowingContinuation { continuation in
             
             guard let window = Self.findPresentationWindow() else {
@@ -92,12 +92,13 @@ extension AppleLoginService: ASAuthorizationControllerDelegate {
             return
         }
         
-        let loginRequest = LoginRequest(
+        let socialCredential = SocialLoginCredential(
             provider: .apple,
-            socialId: tokenString
+            socialId: credential.user,
+            socialToken: tokenString
         )
         
-        continuation?.resume(returning: loginRequest)
+        continuation?.resume(returning: socialCredential)
         clear()
     }
     

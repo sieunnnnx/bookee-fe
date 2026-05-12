@@ -280,7 +280,7 @@ struct SignupProfileView: View {
         viewModel.updateProfile(
             nickname: nickname,
             profileImgUrl: profileImageUrl,
-            birthday: Self.birthdayFormatter.string(from: selectedBirthday)
+            birthday: Self.serverBirthdayFormatter.string(from: selectedBirthday)
         )
         
         onNext()
@@ -303,6 +303,15 @@ struct SignupProfileView: View {
     private static let birthdayFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+    
+    private static let serverBirthdayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
     

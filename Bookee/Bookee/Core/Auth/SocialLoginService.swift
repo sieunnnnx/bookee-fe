@@ -13,7 +13,7 @@ final class SocialLoginService {
     
     private init() {}
     
-    func login(provider: SocialLoginProvider) async throws -> LoginRequest {
+    func login(provider: SocialLoginProvider) async throws -> SocialLoginCredential {
         switch provider {
             
         case .kakao:

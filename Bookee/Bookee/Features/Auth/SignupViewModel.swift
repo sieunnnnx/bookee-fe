@@ -20,6 +20,7 @@ final class SignupViewModel: ObservableObject {
             termAgreements: [],
             provider: pendingSignup.provider,
             socialId: pendingSignup.socialId,
+            socialToken: pendingSignup.socialToken,
             profileImgUrl: nil,
             nickname: "",
             birthday: "",
@@ -45,7 +46,28 @@ final class SignupViewModel: ObservableObject {
         signupRequest.email = email
     }
     
-    func signup() async {
+    func signup() async -> Bool {
+        isLoading = true
+        errorMessage = nil
+        
+        defer {
+            isLoading = false
+        }
+        
+        do {
+            try await APIClient.shared.requestVoid(
+                endpoint: AuthEndpoint.signup(signupRequest)
+            )
+            return true
+            
+        } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription
+                ?? error.localizedDescription
+            return false
+        }
+    }
+    
+    func loginAfterSignup() async -> Bool {
         isLoading = true
         errorMessage = nil
         
@@ -55,7 +77,12 @@ final class SignupViewModel: ObservableObject {
         
         do {
             let response = try await APIClient.shared.request(
-                endpoint: AuthEndpoint.signup(signupRequest),
+                endpoint: AuthEndpoint.socialLogin(
+                    LoginRequest(
+                        provider: signupRequest.provider,
+                        socialToken: signupRequest.socialToken
+                    )
+                ),
                 responseType: SocialLoginResponse.self
             )
             
@@ -63,10 +90,12 @@ final class SignupViewModel: ObservableObject {
                 accessToken: response.accessToken,
                 refreshToken: response.refreshToken
             )
+            return true
             
         } catch {
             errorMessage = (error as? LocalizedError)?.errorDescription
                 ?? error.localizedDescription
+            return false
         }
     }
 }

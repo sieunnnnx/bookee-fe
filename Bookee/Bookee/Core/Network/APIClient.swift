@@ -7,6 +7,8 @@
 
 import Foundation
 
+private struct EmptyResponse: Decodable {}
+
 final class APIClient {
     
     static let shared = APIClient()
@@ -54,6 +56,55 @@ final class APIClient {
             
         } catch let apiError as APIError {
             throw apiError
+            
+        } catch let decodingError as DecodingError {
+            print("API decoding failed:", decodingError)
+            print("Response body:", String(data: data, encoding: .utf8) ?? "")
+            throw APIError.decodingFailed
+            
+        } catch {
+            throw APIError.decodingFailed
+        }
+    }
+    
+    func requestVoid(endpoint: APIEndpoint) async throws {
+        let request = try makeURLRequest(endpoint: endpoint)
+        let data: Data
+        let response: URLResponse
+        
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw APIError.requestFailed
+        }
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        guard (200...599).contains(httpResponse.statusCode) else {
+            throw APIError.invalidResponse
+        }
+        
+        do {
+            let decodedResponse = try JSONDecoder().decode(APIResponse<EmptyResponse>.self, from: data)
+            
+            if decodedResponse.isSuccess {
+                return
+            }
+            
+            throw APIError.serverError(
+                code: decodedResponse.code,
+                message: decodedResponse.message
+            )
+            
+        } catch let apiError as APIError {
+            throw apiError
+            
+        } catch let decodingError as DecodingError {
+            print("API decoding failed:", decodingError)
+            print("Response body:", String(data: data, encoding: .utf8) ?? "")
+            throw APIError.decodingFailed
             
         } catch {
             throw APIError.decodingFailed

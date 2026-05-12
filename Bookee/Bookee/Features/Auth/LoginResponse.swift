@@ -11,5 +11,5 @@ struct SocialLoginResponse: Decodable {
     
     let refreshToken: String
     
-    let user: UserInfo
+    let user: UserInfo?
 }

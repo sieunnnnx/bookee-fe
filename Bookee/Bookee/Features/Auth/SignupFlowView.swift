@@ -13,12 +13,19 @@ struct SignupFlowView: View {
         case terms
         case profile
         case email
+        case complete
     }
     
     @StateObject private var signupViewModel: SignupViewModel
     @State private var step: Step = .terms
     
-    init(pendingSignup: PendingSignup) {
+    let onStart: () -> Void
+    
+    init(
+        pendingSignup: PendingSignup,
+        onStart: @escaping () -> Void
+    ) {
+        self.onStart = onStart
         _signupViewModel = StateObject(
             wrappedValue: SignupViewModel(pendingSignup: pendingSignup)
         )
@@ -42,8 +49,26 @@ struct SignupFlowView: View {
         case .email:
             SignupEmailView(
                 viewModel: signupViewModel,
-                onBack: { step = .profile }
+                onBack: { step = .profile },
+                onComplete: { step = .complete }
             )
+            
+        case .complete:
+            SignupCompleteView(
+                nickname: signupViewModel.signupRequest.nickname,
+                isLoading: signupViewModel.isLoading,
+                errorMessage: signupViewModel.errorMessage,
+                onStart: loginAfterSignup
+            )
+        }
+    }
+    
+    private func loginAfterSignup() {
+        Task {
+            let isLoginComplete = await signupViewModel.loginAfterSignup()
+            if isLoginComplete {
+                onStart()
+            }
         }
     }
 }
@@ -52,7 +77,9 @@ struct SignupFlowView: View {
     SignupFlowView(
         pendingSignup: PendingSignup(
             provider: .google,
-            socialId: "preview"
-        )
+            socialId: "preview",
+            socialToken: "preview-token"
+        ),
+        onStart: {}
     )
 }

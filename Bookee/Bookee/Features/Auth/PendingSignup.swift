@@ -14,4 +14,6 @@ struct PendingSignup: Identifiable {
     let provider: SocialLoginProvider
     
     let socialId: String
+    
+    let socialToken: String
 }

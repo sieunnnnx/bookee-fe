@@ -41,7 +41,7 @@ struct DateInput: View {
                         .foregroundStyle(textColor)
                     
                     Text(value)
-                        .font(Typo.inputPlaceholder)
+                        .font(isSelected ? Typo.inputText : Typo.inputPlaceholder)
                         .foregroundColor(textColor)
                     
                     Spacer()

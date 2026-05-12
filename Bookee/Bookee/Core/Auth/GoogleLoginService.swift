@@ -16,7 +16,7 @@ final class GoogleLoginService {
     private init() {}
     
     @MainActor
-    func login() async throws -> LoginRequest {
+    func login() async throws -> SocialLoginCredential {
         guard let presentingViewController = UIApplication.shared.rootViewController else {
             throw SocialLoginError.missingRootViewController
         }
@@ -27,13 +27,15 @@ final class GoogleLoginService {
         
         let user = signInResult.user
         
-        guard let idToken = user.idToken?.tokenString else {
+        guard let googleUserId = user.userID,
+              let googleIDToken = user.idToken?.tokenString else {
             throw SocialLoginError.missingToken
         }
         
-        return LoginRequest(
+        return SocialLoginCredential(
             provider: .google,
-            socialId: idToken
+            socialId: googleUserId,
+            socialToken: googleIDToken
         )
     }
     

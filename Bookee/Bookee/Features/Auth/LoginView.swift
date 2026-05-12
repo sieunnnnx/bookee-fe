@@ -12,6 +12,22 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
+        Group {
+            if viewModel.isAuthenticated {
+                ContentView()
+            } else {
+                loginContent
+            }
+        }
+        .fullScreenCover(item: $viewModel.pendingSignup) { pendingSignup in
+            SignupFlowView(pendingSignup: pendingSignup) {
+                viewModel.pendingSignup = nil
+                viewModel.isAuthenticated = true
+            }
+        }
+    }
+    
+    private var loginContent: some View {
         VStack(spacing: 0) {
             AppHeader(leftIconName: "icon-prev")
                 .padding(.horizontal, Spacing.spacing16)
@@ -36,9 +52,6 @@ struct LoginView: View {
         }
         .background(Color.white)
         .disabled(viewModel.isLoading)
-        .fullScreenCover(item: $viewModel.pendingSignup) { pendingSignup in
-            SignupFlowView(pendingSignup: pendingSignup)
-        }
     }
     
     private func login(provider: SocialLoginProvider) {

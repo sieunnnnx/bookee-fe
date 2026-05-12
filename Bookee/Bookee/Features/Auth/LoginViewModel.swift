@@ -12,6 +12,7 @@ import Combine
 final class LoginViewModel: ObservableObject {
     
     @Published var isLoading = false
+    @Published var isAuthenticated = false
     @Published var errorMessage: String?
     @Published var pendingSignup: PendingSignup?
     
@@ -25,23 +26,25 @@ final class LoginViewModel: ObservableObject {
         }
         
         do {
-            let loginRequest = try await SocialLoginService.shared.login(
+            let credential = try await SocialLoginService.shared.login(
                 provider: provider
             )
             
             do {
-                let response = try await requestSocialLogin(loginRequest)
+                let response = try await requestSocialLogin(credential.loginRequest)
                 
                 TokenStorage.shared.save(
                     accessToken: response.accessToken,
                     refreshToken: response.refreshToken
                 )
+                isAuthenticated = true
                 
             } catch let error as APIError {
                 if error.code == "AUTH-005" {
                     pendingSignup = PendingSignup(
-                        provider: loginRequest.provider,
-                        socialId: loginRequest.socialId
+                        provider: credential.provider,
+                        socialId: credential.socialId,
+                        socialToken: credential.socialToken
                     )
                 } else {
                     errorMessage = error.errorDescription

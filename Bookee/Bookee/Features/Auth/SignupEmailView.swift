@@ -13,6 +13,7 @@ struct SignupEmailView: View {
     @Environment(\.dismiss) private var dismiss
     
     let onBack: () -> Void
+    let onComplete: () -> Void
     
     @State private var email = ""
     @State private var emailMessage: String?
@@ -111,7 +112,10 @@ struct SignupEmailView: View {
         viewModel.updateEmail(email)
         
         Task {
-            await viewModel.signup()
+            let isSignupComplete = await viewModel.signup()
+            if isSignupComplete {
+                onComplete()
+            }
         }
     }
     
