@@ -37,7 +37,7 @@ struct LoginView: View {
         .background(Color.white)
         .disabled(viewModel.isLoading)
         .fullScreenCover(item: $viewModel.pendingSignup) { pendingSignup in
-            SignupTermsView(pendingSignup: pendingSignup)
+            SignupFlowView(pendingSignup: pendingSignup)
         }
     }
     

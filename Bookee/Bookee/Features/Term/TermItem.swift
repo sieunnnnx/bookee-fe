@@ -13,7 +13,7 @@ struct TermItem: Identifiable {
     
     let required: Bool
     
-    var agreed: Bool = false
+    var isChecked: Bool = false
     
     
     var id: Int {

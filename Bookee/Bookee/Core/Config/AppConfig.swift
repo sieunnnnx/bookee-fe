@@ -14,7 +14,7 @@ enum AppConfig {
         guard let key = Bundle.main.object(
             forInfoDictionaryKey: "Default Native AppKey"
         ) as? String else {
-            fatalError("KAKAO_NATIVE_APP_KEY가 설정되지 않았습니다.")
+            fatalError("Default Native AppKey 가 설정되지 않았습니다.")
         }
         
         return key
